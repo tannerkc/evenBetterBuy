@@ -19,6 +19,7 @@ var mongoose = require('mongoose');
 dotenv.config()
 
 const mongodbURL = config.MONGODB_URL;
+
 mongoose.connect(mongodbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -27,6 +28,7 @@ mongoose.connect(mongodbURL, {
 
 
 const app = express();
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 
@@ -46,6 +48,9 @@ app.use("/api/orders", orderRouter);
 // app.get("/api/products", (req, res) => {
 //     res.send(data.products);
 // });
+if (process.env.NODE_ENV === 'production'){
+    app.use(express.static('../frontend/build'))
+}
 
-app.listen(5000, () => {console.log('server started at http://localhost:5000')})
+app.listen(PORT, () => {console.log(`server started at ${PORT}`)})
 
