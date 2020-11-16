@@ -49,7 +49,7 @@ app.use("/api/orders", orderRouter);
 //     res.send(data.products);
 // });
 if (process.env.NODE_ENV === 'production'){
-    app.use(express.static('../frontend/build'))
+    app.use(express.static('./frontend/build'))
 }
 
 app.listen(PORT, () => {console.log(`server started at ${PORT}`)})
